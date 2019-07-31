@@ -10,6 +10,7 @@ else
     echo -n "please input username: "
     read username
 fi
+
 # read password
 if [ $# -ge 2 ]; then
     password=$2
@@ -19,9 +20,17 @@ else
 fi
 password=`echo -n $password | base64`
 
+# read if roaming
+if [ $# -ge 3 ]; then
+    roaming=$3
+else
+    echo -n "please input if roaming (0/1): "
+	read -s roaming
+fi
+
 login_url=http://a.suda.edu.cn/index.php/index/login
 
 #login
-html=$(curl $login_url -d "username="$username"&password="$password)
+html=$(curl $login_url -d "username="$username"&password="$password"&enablemacauth="$roaming)
 
 #echo $html
