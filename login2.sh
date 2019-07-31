@@ -18,19 +18,19 @@ else
     echo -n "please input password: "
 	read -s password
 fi
-password=`echo -n $password | base64`
 
 # read if roaming
 if [ $# -ge 3 ]; then
     roaming=$3
 else
-    echo -n "please input if roaming (0/1): "
-	read -s roaming
+    echo -n -e "\nplease input if roaming (0/1): "
+	read roaming
 fi
 
+password=`echo -n $password | base64`
 login_url=http://a.suda.edu.cn/index.php/index/login
 
-#login
+# login
 html=$(curl $login_url -d "username="$username"&password="$password"&enablemacauth="$roaming)
 
-#echo $html
+# echo $html
