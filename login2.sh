@@ -30,7 +30,11 @@ fi
 password=`echo -n $password | base64`
 login_url=http://a.suda.edu.cn/index.php/index/login
 
+# Specify ip resolve, in case no dns server is available
+login_site=a.suda.edu.cn:80
+login_ip=10.9.0.30
+
 # login
-html=$(curl $login_url -d "username="$username"&password="$password"&enablemacauth="$roaming)
+html=$(curl --resolve $login_site:$login_ip $login_url -d "username="$username"&password="$password"&enablemacauth="$roaming)
 
 # echo $html
